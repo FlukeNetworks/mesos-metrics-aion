@@ -137,6 +137,7 @@ writeAionMetric baseURL aionMetric =
                 }
         let content = jsonStringify fullMetric
         let requestOptions = (HTTP.protocol := "http:") <> (HTTP.hostname := baseURL) <> (HTTP.method := "POST") <> (HTTP.path := "/mesos_metrics") <> (HTTP.port := 31013)
+        liftEff $ log $ show $ jsonStringify requestOptions
         writeResponse <- affHttpRequestBody requestOptions content
         liftEff $ log $ show $ HTTP.statusCode writeResponse
 
